@@ -26,7 +26,8 @@ pub fn get_many_test<T>(year: i16, day: i16, parser: fn(&str) -> T) -> Vec<T> {
 
 pub fn get_many_from_string<T>(content: String, parser: fn(&str) -> T) -> Vec<T> {
     content
-        .split('\n')
+        .lines()
+        .filter(|line| !line.is_empty())
         .map(|c| parser(c))
         .collect()
 }
