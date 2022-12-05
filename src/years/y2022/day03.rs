@@ -14,13 +14,10 @@ pub struct Day03 {
 fn compartments_parser(line: &str) -> Rucksack {
     let chars = line.chars().into_iter().map(|c| c).collect::<Vec<_>>();
     let (comp_a, comp_b) = chars.split_at(chars.len() / 2);
-    Rucksack(comp_a.into_iter().fold(HashSet::new(), |mut acc, c| {
-            acc.insert(*c);
-            acc
-        }), comp_b.into_iter().fold(HashSet::new(), |mut acc, c| {
-            acc.insert(*c);
-            acc
-        }))
+    Rucksack(
+        comp_a.iter().map(|c| *c).collect::<HashSet<_>>(),
+        comp_b.iter().map(|c| *c).collect::<HashSet<_>>(),
+    )
 }
 
 fn groups_parser(input: String) -> Vec<Group> {

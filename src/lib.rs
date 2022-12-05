@@ -1,6 +1,6 @@
 use std::fmt::Display;
 use stopwatch::Stopwatch;
-use termion::{color};
+use termion::color;
 
 pub mod utils;
 pub mod years;
@@ -10,7 +10,7 @@ pub trait Solution {
     fn part_2_display(&self) -> Box<dyn Display>;
 }
 
-pub fn print_solution(year: i16, day: i16, solution: Box<dyn Solution>) {
+pub fn print_solution(year: i16, day: i16, solution: Box<dyn  Solution>) {
     let print_execution_time = |seconds: f32| {
         print!("{} - It took {} seconds\n", color::Fg(color::Green), seconds);
     };

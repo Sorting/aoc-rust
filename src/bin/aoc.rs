@@ -12,6 +12,7 @@ fn main() {
         (2022, 2, Box::new(years::y2022::day02::Day02::new())),
         (2022, 3, Box::new(years::y2022::day03::Day03::new())),
         (2022, 4, Box::new(years::y2022::day04::Day04::new())),
+        (2022, 5, Box::new(years::y2022::day05::Day05::new())),
     ];
     
     let (year, day) = match &env::args().collect::<Vec<String>>()[..] {
