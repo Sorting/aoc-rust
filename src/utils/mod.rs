@@ -1,19 +1,25 @@
-use std::fs;
 use std::env;
+use std::fs;
 
 fn get_contents(year: i16, day: i16, is_test: bool) -> String {
-   let path = env::current_dir().unwrap();
+    let path = env::current_dir().unwrap();
 
-   fs::read_to_string(format!("{}/input/{}/day0{}{}", path.display(), year, day, if is_test { "_test" } else { "" }))
-        .expect("Something went wrong when reading the file")
+    fs::read_to_string(format!(
+        "{}/input/{}/day0{}{}",
+        path.display(),
+        year,
+        day,
+        if is_test { "_test" } else { "" }
+    ))
+    .expect("Something went wrong when reading the file")
 }
 
 pub fn get_single<T>(year: i16, day: i16, parser: fn(String) -> T) -> T {
-   parser(get_contents(year, day, false))
+    parser(get_contents(year, day, false))
 }
 
 pub fn get_single_test<T>(year: i16, day: i16, parser: fn(String) -> T) -> T {
-   parser(get_contents(year, day, true))
+    parser(get_contents(year, day, true))
 }
 
 pub fn get_many<T>(year: i16, day: i16, parser: fn(&str) -> T) -> Vec<T> {

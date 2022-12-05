@@ -1,5 +1,8 @@
+use crate::{
+    utils::{get_single, get_single_test},
+    Solution,
+};
 use core::fmt::Display;
-use crate::{utils::{get_single, get_single_test}, Solution};
 
 struct Elf {
     items: Vec<usize>,
@@ -8,7 +11,7 @@ pub struct Day01 {
     elves: Vec<Elf>,
 }
 
-fn parser(s: String) -> Vec<Elf> { 
+fn parser(s: String) -> Vec<Elf> {
     let lines: Vec<&str> = s.split("\n").collect();
     let mut elfs: Vec<Elf> = Vec::new();
     let mut elf = Elf { items: Vec::new() };
@@ -19,9 +22,9 @@ fn parser(s: String) -> Vec<Elf> {
             Ok(calories) => elf.items.push(calories),
             Err(_) => {
                 elfs.push(elf);
-                elf = Elf { items: Vec::new() };    
+                elf = Elf { items: Vec::new() };
                 continue;
-            } 
+            }
         }
     }
 
@@ -30,23 +33,31 @@ fn parser(s: String) -> Vec<Elf> {
 
 impl Day01 {
     pub fn new() -> Self {
-        Day01 { elves: get_single(2022, 1, parser)}
+        Day01 {
+            elves: get_single(2022, 1, parser),
+        }
     }
 
     pub fn new_test() -> Self {
-        Day01 { elves: get_single_test(2022, 1, parser)}
+        Day01 {
+            elves: get_single_test(2022, 1, parser),
+        }
     }
 
     fn part_1(&self) -> usize {
-        self.elves.iter().map(|elf| {
-            elf.items.iter().sum::<usize>()
-        }).max().unwrap()
+        self.elves
+            .iter()
+            .map(|elf| elf.items.iter().sum::<usize>())
+            .max()
+            .unwrap()
     }
 
     fn part_2(&self) -> usize {
-        let mut ne: Vec<usize> = self.elves.iter().map(|elf| {
-            elf.items.iter().sum::<usize>()
-        }).collect();
+        let mut ne: Vec<usize> = self
+            .elves
+            .iter()
+            .map(|elf| elf.items.iter().sum::<usize>())
+            .collect();
         ne.sort_by(|a, b| b.cmp(a));
 
         ne.into_iter().take(3).sum()

@@ -1,15 +1,15 @@
-use core::fmt::Display;
 use crate::{utils::get_many, utils::get_many_test, Solution};
+use core::fmt::Display;
 
 pub struct Day02 {
-    pub commands: Vec<Command>
+    pub commands: Vec<Command>,
 }
 
 pub enum Command {
     Forward(i32),
     Down(i32),
     Up(i32),
-    None
+    None,
 }
 
 fn parser(input: &str) -> Command {
@@ -24,42 +24,43 @@ fn parser(input: &str) -> Command {
     match s[0] {
         "up" => Command::Up(steps),
         "down" => Command::Down(steps),
-        _ => Command::Forward(steps)
+        _ => Command::Forward(steps),
     }
 }
 
 impl Day02 {
     pub fn new() -> Self {
-        Day02 { commands: get_many(2021, 2, parser) }
-    }    
+        Day02 {
+            commands: get_many(2021, 2, parser),
+        }
+    }
 
     pub fn new_test() -> Self {
-        Day02 { commands: get_many_test(2021, 2, parser) }
+        Day02 {
+            commands: get_many_test(2021, 2, parser),
+        }
     }
 
     fn part_1(&self) -> i32 {
-        let (x, y) = self.commands
-            .iter()
-            .fold((0, 0), |(x, y), cmd|
-                match cmd {
-                    Command::Forward(steps) => (x + steps, y),
-                    Command::Down(steps) => (x, y + steps),
-                    Command::Up(steps) => (x, y - steps),
-                    _ => panic!("Unknown command")
-                });
+        let (x, y) = self.commands.iter().fold((0, 0), |(x, y), cmd| match cmd {
+            Command::Forward(steps) => (x + steps, y),
+            Command::Down(steps) => (x, y + steps),
+            Command::Up(steps) => (x, y - steps),
+            _ => panic!("Unknown command"),
+        });
         x * y
     }
 
     fn part_2(&self) -> i32 {
-        let (x, y, _) = self.commands
+        let (x, y, _) = self
+            .commands
             .iter()
-            .fold((0, 0, 0), |(x, y, a), cmd|
-                match cmd {
-                    Command::Forward(steps) => (x + steps, y + (a * steps), a),
-                    Command::Down(steps) => (x, y, a + steps),
-                    Command::Up(steps) => (x, y, a - steps),
-                    _ => panic!("Unknown command")
-                });
+            .fold((0, 0, 0), |(x, y, a), cmd| match cmd {
+                Command::Forward(steps) => (x + steps, y + (a * steps), a),
+                Command::Down(steps) => (x, y, a + steps),
+                Command::Up(steps) => (x, y, a - steps),
+                _ => panic!("Unknown command"),
+            });
         x * y
     }
 }

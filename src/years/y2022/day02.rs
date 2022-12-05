@@ -1,5 +1,8 @@
+use crate::{
+    utils::{get_many, get_many_test},
+    Solution,
+};
 use core::fmt::Display;
-use crate::{utils::{get_many, get_many_test}, Solution};
 
 pub enum Choice {
     Rock,
@@ -17,7 +20,7 @@ pub struct Day02 {
     part_2_rounds: Vec<Round>,
 }
 
-fn part_1_parser(s: &str) -> Option<Round> { 
+fn part_1_parser(s: &str) -> Option<Round> {
     let choices = s.split_whitespace().collect::<Vec<_>>();
     match choices[..] {
         [their, my] => Some(Round {
@@ -38,10 +41,10 @@ fn part_1_parser(s: &str) -> Option<Round> {
     }
 }
 
-fn part_2_parser(s: &str) -> Option<Round> { 
+fn part_2_parser(s: &str) -> Option<Round> {
     let choices = s.split_whitespace().collect::<Vec<_>>();
     match choices[..] {
-        [their, action] => { 
+        [their, action] => {
             let their_choice = match their {
                 "A" => &Choice::Rock,
                 "B" => &Choice::Paper,
@@ -65,7 +68,7 @@ fn part_2_parser(s: &str) -> Option<Round> {
                     _ => panic!("Invalid choice"),
                 },
             })
-        },            
+        }
         _ => None,
     }
 }
@@ -86,16 +89,28 @@ fn calc_score(round: &Round) -> usize {
 
 impl Day02 {
     pub fn new() -> Self {
-        Day02 { 
-            part_1_rounds: get_many(2022, 2, part_1_parser).into_iter().flatten().collect(),
-            part_2_rounds: get_many(2022, 2, part_2_parser).into_iter().flatten().collect(),
+        Day02 {
+            part_1_rounds: get_many(2022, 2, part_1_parser)
+                .into_iter()
+                .flatten()
+                .collect(),
+            part_2_rounds: get_many(2022, 2, part_2_parser)
+                .into_iter()
+                .flatten()
+                .collect(),
         }
     }
 
     pub fn new_test() -> Self {
-        Day02 { 
-            part_1_rounds: get_many_test(2022, 2, part_1_parser).into_iter().flatten().collect(),
-            part_2_rounds: get_many_test(2022, 2, part_2_parser).into_iter().flatten().collect(),
+        Day02 {
+            part_1_rounds: get_many_test(2022, 2, part_1_parser)
+                .into_iter()
+                .flatten()
+                .collect(),
+            part_2_rounds: get_many_test(2022, 2, part_2_parser)
+                .into_iter()
+                .flatten()
+                .collect(),
         }
     }
 
